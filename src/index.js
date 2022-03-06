@@ -9,15 +9,15 @@ const { app } = require("./routes");
 
 const prisma = new PrismaClient();
 
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-// const graphQLServer = new ApolloServer({ resolvers, typeDefs });
-// graphQLServer.listen({ PORT }, () =>
-//   console.log(`Server runs at: http://localhost:${PORT}`)
-// );
-
-const server = app.listen(PORT, () =>
-  console.log(
-    `🚀 Server ready at: http://localhost:${PORT}\n⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`
-  )
+const graphQLServer = new ApolloServer({ resolvers, typeDefs });
+graphQLServer.listen({ port }, () =>
+  console.log(`Server runs at: http://localhost:${port}`)
 );
+
+// const server = app.listen(port, () =>
+//   console.log(
+//     `🚀 Server ready at: http://localhost:${port}\n⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`
+//   )
+// );
