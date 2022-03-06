@@ -11,3 +11,5 @@ cd heroku
 
 https://git.heroku.com/sch-anbieter.git
 postgresql-dimensional-08417 as DATABASE_URL
+
+https://sch-anbieter.herokuapp.com
