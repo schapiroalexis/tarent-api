@@ -8,3 +8,6 @@
 curl https://codeload.github.com/prisma/prisma-examples/tar.gz/latest | tar -xz --strip=2 prisma-examples-latest/deployment-platforms/heroku
 cd heroku
 ```
+
+https://git.heroku.com/sch-anbieter.git
+postgresql-dimensional-08417 as DATABASE_URL
