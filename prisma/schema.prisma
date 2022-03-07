@@ -13,6 +13,7 @@ model Course {
   title String
   teacher Teacher @relation(fields: [teacherId], references: [id])
   description String
+  enrollments Enrollment[]
   }
 
 model Teacher {
@@ -26,7 +27,6 @@ model Studentv2 {
   id Int @id @default(autoincrement())
   fullName String
   email String
-  enrollments Enrollment[]
 }
 
 model Student {
@@ -35,12 +35,15 @@ model Student {
   fullName String
   dept     String?
   enrolled Boolean @default(false)
+  enrollments Enrollment[]
 }
 
 model Enrollment {
   id Int @id @default(autoincrement())
-  course Course
-  student Student
+  courseId Int?
+  studentId Int?
+  course Course? @relation(fields: [courseId], references: [id])
+  student Student? @relation(fields: [studentId], references: [id])
 }
 
 model User {
