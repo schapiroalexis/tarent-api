@@ -12,7 +12,7 @@ model Course {
   teacherId Int
   title String
   teacher Teacher @relation(fields: [teacherId], references: [id])
-  description: String
+  description String
   }
 
 model Teacher {
