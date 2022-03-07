@@ -7,6 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Course {
+  id Int @id @default(autoincrement())
+  teacherId Int
+  title String!
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+  description: String!
+  }
+
+model Teacher {
+  id Int @id @default(autoincrement())
+  fullName String!
+  email String!
+  courses Course[]
+}
+
+model Studentv2 {
+  id Int @id @default(autoincrement())
+  fullName String!
+  email String!
+  enrollments Enrollment[]
+}
+
+model Student {
+  id       Int     @id @default(autoincrement())
+  email    String
+  fullName String
+  dept     String?
+  enrolled Boolean @default(false)
+}
+
+model Enrollment {
+  id Int @id @default(autoincrement())
+  course Course!
+  student Student!
+}
+
 model User {
   email String  @unique
   id    Int     @id @default(autoincrement())

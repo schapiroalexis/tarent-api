@@ -5,12 +5,15 @@
   "scripts": {
     "build": "prisma generate",
     "dev": "PORT=3000 node src/index.js",
-    "start": "node src/index.js"
+    "start": "cross-env DATABASE_URL=postgres://tpqozdpncwypff:aa678f2b9c02466ab562a39285a109f6a92a261cca5666c9ee381cb853ed20c8@ec2-3-225-79-57.compute-1.amazonaws.com:5432/d284ipototg4b0 node src/index.js"
   },
   "dependencies": {
     "@prisma/client": "3.10.0",
     "apollo-server": "^3.6.3",
     "body-parser": "1.19.2",
+    "cross-env": "^7.0.3",
+    "dotenv-expand": "^8.0.1",
+    "env-cmd": "^10.1.0",
     "express": "4.17.3",
     "graphql": "^16.3.0",
     "prisma": "3.10.0"

@@ -7,8 +7,6 @@ const { typeDefs } = require("./schema");
 const { resolvers } = require("./resolvers");
 const { app } = require("./routes");
 
-const prisma = new PrismaClient();
-
 const port = process.env.PORT || 3000;
 
 const graphQLServer = new ApolloServer({ resolvers, typeDefs });
