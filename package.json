@@ -2,6 +2,9 @@
   "name": "prisma-heroku",
   "version": "1.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "build": "prisma generate",
     "dev": "PORT=3000 node src/index.js",

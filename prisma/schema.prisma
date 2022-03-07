@@ -10,22 +10,22 @@ datasource db {
 model Course {
   id Int @id @default(autoincrement())
   teacherId Int
-  title String!
+  title String
   teacher Teacher @relation(fields: [teacherId], references: [id])
-  description: String!
+  description: String
   }
 
 model Teacher {
   id Int @id @default(autoincrement())
-  fullName String!
-  email String!
+  fullName String
+  email String
   courses Course[]
 }
 
 model Studentv2 {
   id Int @id @default(autoincrement())
-  fullName String!
-  email String!
+  fullName String
+  email String
   enrollments Enrollment[]
 }
 
@@ -39,8 +39,8 @@ model Student {
 
 model Enrollment {
   id Int @id @default(autoincrement())
-  course Course!
-  student Student!
+  course Course
+  student Student
 }
 
 model User {
