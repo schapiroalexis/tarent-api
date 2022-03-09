@@ -8,7 +8,8 @@
   "scripts": {
     "build": "prisma generate",
     "dev": "PORT=3000 node src/index.js",
-    "start": "cross-env DATABASE_URL=postgres://wmoyerjftlzylj:44765775913ad23bdc0502f3aa953e8fdb8a6d9268b910dfbe6df761a67ebe95@ec2-44-195-191-252.compute-1.amazonaws.com:5432/dclubs11f6lffc nodemon node --inspect src/index.js"
+    "debug": "cross-env DATABASE_URL=postgres://wmoyerjftlzylj:44765775913ad23bdc0502f3aa953e8fdb8a6d9268b910dfbe6df761a67ebe95@ec2-44-195-191-252.compute-1.amazonaws.com:5432/dclubs11f6lffc nodemon node --inspect src/index.js",
+    "start": "cross-env DATABASE_URL=postgres://wmoyerjftlzylj:44765775913ad23bdc0502f3aa953e8fdb8a6d9268b910dfbe6df761a67ebe95@ec2-44-195-191-252.compute-1.amazonaws.com:5432/dclubs11f6lffc nodemon node src/index.js"
   },
   "dependencies": {
     "@prisma/client": "3.10.0",

@@ -15,9 +15,21 @@ const Course = {
       },
     });
   },
-  schedules(parent, args) {
-    console.log("getting schedules");
-    return prisma.schedule.findMany({
+  schedules: async (parent, args) => {
+    console.log("getting schedules for courses");
+    const results = await prisma.schedule.findMany({
+      where: {
+        courseId: Number(parent.id),
+      },
+    });
+    return results;
+  },
+};
+
+const Schedule = {
+  course(parent, args) {
+    console.log("getting courses for schedules");
+    return prisma.course.findFirst({
       where: {
         id: Number(parent.courseId),
       },
@@ -39,16 +51,21 @@ const Query = {
       where: { id: Number(args.id) },
     });
   },
-  courses: () => {
-    return prisma.course.findMany({});
+  courses: async () => {
+    const results = await prisma.course.findMany({});
+    return results;
   },
-  schedules: () => {
-    return prisma.schedule.findMany({});
-  },
-  schedule: (parent, args) => {
-    return prisma.schedule.findFirst({
+  course: (parent, args) => {
+    return prisma.course.findFirst({
       where: { id: Number(args.id) },
     });
+  },
+  schedules: () => prisma.schedule.findMany({}),
+  schedule: async (parent, args) => {
+    const result = await prisma.schedule.findFirst({
+      where: { id: Number(args.id) },
+    });
+    return result;
   },
 };
 
@@ -107,6 +124,31 @@ const Mutation = {
       },
     });
   },
+  patchCourse: async (parent, args) => {
+    try {
+      const { id, teacherId, title, description, price } = args;
+      const courseExists = await prisma.course.findUnique({
+        where: {
+          id,
+        },
+      });
+      //if (!courseExists) return "course id not found";
+      const patchResult = await prisma.course.update({
+        where: { id },
+        data: {
+          teacherId,
+          title,
+          description,
+          price,
+        },
+      });
+      if (patchResult) return "sucess";
+      return "error: course not found";
+    } catch (error) {
+      console.log(error);
+      return "error: course could not be updated";
+    }
+  },
   // enroll: (parent, args) => {
   //   return prisma.student.update({
   //     where: { id: Number(args.id) },
@@ -117,7 +159,7 @@ const Mutation = {
   // },
 };
 
-const resolvers = { Student, Course, Query, Mutation };
+const resolvers = { Schedule, Student, Course, Query, Mutation };
 
 module.exports = {
   resolvers,

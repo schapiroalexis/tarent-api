@@ -3,73 +3,74 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 
 }
 
 model Schedule {
-  id Int @id @default(autoincrement())
-  courseId Int 
-  course Course @relation(fields: [courseId], references: [id])
-  startDate String
-  endDate String
-  frecuency String
+  id           Int    @id @default(autoincrement())
+  courseId     Int
+  course       Course @relation(fields: [courseId], references: [id])
+  startDate    String
+  endDate      String
+  frecuency    String
   availability Int
-  mo String
-  tu String
-  we String
-  th String
-  fr String
-  sa String
-  su String
+  mo           String
+  tu           String
+  we           String
+  th           String
+  fr           String
+  sa           String
+  su           String
 }
 
 model Course {
-  id Int @id @default(autoincrement())
-  teacherId Int
-  title String
-  teacher Teacher @relation(fields: [teacherId], references: [id])
+  id          Int          @id @default(autoincrement())
+  teacherId   Int
+  title       String
+  teacher     Teacher      @relation(fields: [teacherId], references: [id])
   description String
   enrollments Enrollment[]
-  schedules Schedule[]
-  }
+  price       Int          @default(0)
+  Schedule    Schedule[]
+}
 
 model Teacher {
-  id Int @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   fullName String
-  email String
-  courses Course[]
+  email    String
+  courses  Course[]
 }
 
 model Studentv2 {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   fullName String
-  email String
+  email    String
 }
 
 model Student {
-  id       Int     @id @default(autoincrement())
-  email    String
-  fullName String
-  dept     String?
-  enrolled Boolean @default(false)
+  id          Int          @id @default(autoincrement())
+  email       String
+  fullName    String
+  dept        String?
+  enrolled    Boolean      @default(false)
   enrollments Enrollment[]
 }
 
 model Enrollment {
-  id Int @id @default(autoincrement())
-  courseId Int?
+  id        Int      @id @default(autoincrement())
+  courseId  Int?
   studentId Int?
-  course Course? @relation(fields: [courseId], references: [id])
-  student Student? @relation(fields: [studentId], references: [id])
+  course    Course?  @relation(fields: [courseId], references: [id])
+  student   Student? @relation(fields: [studentId], references: [id])
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id    Int    @id @default(autoincrement())
   email String @unique
-  name String
+  name  String
   posts Post[]
 }
 

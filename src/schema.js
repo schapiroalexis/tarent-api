@@ -19,6 +19,17 @@ const typeDefs = gql`
     description: String!
     schedules: [Schedule]
     enrollments: [Enrollment]
+    price: Int
+  }
+
+  type ScheduledDays {
+    mo: String!
+    tu: String!
+    we: String!
+    th: String!
+    fr: String!
+    sa: String!
+    su: String!
   }
 
   type Schedule {
@@ -70,6 +81,7 @@ const typeDefs = gql`
     students: [Student!]!
     student(id: ID!): Student
     courses: [Course!]!
+    course(id: ID!): Course
     schedules: [Schedule]!
     schedule(id: ID!): Schedule
   }
@@ -80,7 +92,15 @@ const typeDefs = gql`
       teacherId: Int!
       title: String!
       description: String!
+      price: Int!
     ): Course!
+    patchCourse(
+      id: Int!
+      teacherId: Int
+      title: String
+      description: String
+      price: Int
+    ): String!
     registerStudent(email: String!, fullName: String!): Student!
     registerSchedule(
       courseId: Int!
