@@ -9,6 +9,23 @@ datasource db {
 
 }
 
+model Schedule {
+  id Int @id @default(autoincrement())
+  courseId Int 
+  course Course @relation(fields: [courseId], references: [id])
+  startDate String
+  endDate String
+  frecuency String
+  availability Int
+  mo String
+  tu String
+  we String
+  th String
+  fr String
+  sa String
+  su String
+}
+
 model Course {
   id Int @id @default(autoincrement())
   teacherId Int
@@ -16,6 +33,7 @@ model Course {
   teacher Teacher @relation(fields: [teacherId], references: [id])
   description String
   enrollments Enrollment[]
+  schedules Schedule[]
   }
 
 model Teacher {
@@ -49,9 +67,9 @@ model Enrollment {
 }
 
 model User {
-  email String  @unique
-  id    Int     @id @default(autoincrement())
-  name  String?
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String
   posts Post[]
 }
 

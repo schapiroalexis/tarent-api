@@ -17,28 +17,47 @@ const typeDefs = gql`
     title: String!
     teacher: Teacher!
     description: String!
+    schedules: [Schedule]
+    enrollments: [Enrollment]
   }
 
   type Schedule {
     id: ID!
     course: Course!
-    date: Date!
-    availablePlaces: Number!
+    startDate: String!
+    endDate: String!
+    frecuency: String!
+    availability: Int!
+    mo: String!
+    tu: String!
+    we: String!
+    th: String!
+    fr: String!
+    sa: String!
+    su: String!
   }
 
   type Student {
     id: ID!
     fullName: String!
-    userType: UserTypesEnum!
     email: String!
-    enrollments: [Enrollment]!
   }
 
   type Teacher {
     id: ID!
     fullName: String!
     email: String!
-    courses: [Course]!
+    courses: [Course]
+  }
+
+  input DayHour {
+    mo: String
+    tu: String
+    we: String
+    th: String
+    fr: String
+    sa: String
+    su: String
   }
 
   type Enrollment {
@@ -48,18 +67,29 @@ const typeDefs = gql`
   }
 
   type Query {
-    courses(starteDate: Date, endDate: Date): [Course]!
-    schedules(courseId: ID!): [Course!]!
     students: [Student!]!
     student(id: ID!): Student
-    enrollment: [Student!]
+    courses: [Course!]!
+    schedules: [Schedule]!
+    schedule(id: ID!): Schedule
   }
 
   type Mutation {
-    registerCourse(title: String!, teacher: ID!, description: String!): Course!
-    registerEnrollment(studentId: ID!, courseId: ID!): Enrollment!
-    registerStudent(email: String!, fullName: String!, dept: String): Student!
-    enroll(id: ID!): Student
+    registerTeacher(email: String!, fullName: String!): Teacher!
+    registerCourse(
+      teacherId: Int!
+      title: String!
+      description: String!
+    ): Course!
+    registerStudent(email: String!, fullName: String!): Student!
+    registerSchedule(
+      courseId: Int!
+      startDate: String!
+      endDate: String!
+      frecuency: String!
+      availability: Int!
+      daysAndHours: DayHour!
+    ): Schedule!
   }
 `;
 module.exports = {
