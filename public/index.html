@@ -54,9 +54,7 @@
   <body>
     <div class="py-24" style="background: rgb(12, 52, 75)">
       <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold mb-8 text-white">
-          Prisma example
-        </h2>
+        <h2 class="text-4xl font-bold mb-8 text-white">Prisma example</h2>
         <button
           onclick="getApi('')"
           class="fetch-button focus:outline-none bg-white font-bold rounded-full py-4 px-8 my-2 shadow-lg uppercase tracking-wider"
@@ -86,31 +84,32 @@
     </div>
 
     <script>
-      const responseContainer = document.querySelector('.response-container')
-      const loader = document.querySelector('.loader')
+      const responseContainer = document.querySelector(".response-container");
+      const loader = document.querySelector(".loader");
       function renderResponse(res) {
-        responseContainer.textContent = JSON.stringify(res, null, 2)
+        responseContainer.textContent = JSON.stringify(res, null, 2);
       }
 
       const getApi = endpoint => {
-        loader.classList.remove('invisible')
-        fetch(`/api/${endpoint}`)
-          .then(function(response) {
-            return response.json()
-          })
-          .then(function(response) {
-            renderResponse(response)
-            responseContainer.classList.remove('invisible')
-            loader.classList.add('invisible')
-          })
-          .catch(function(err) {
-            responseContainer.classList.remove('invisible')
-            responseContainer.textContent = 'Error fetching'
-          })
-          .finally(function() {
-            loader.classList.add('invisible')
-          })
-      }
+        // loader.classList.remove('invisible')
+        // fetch(`/api/${endpoint}`)
+        //   .then(function(response) {
+        //     return response.json()
+        //   })
+        //   .then(function(response) {
+        //     renderResponse(response)
+        //     responseContainer.classList.remove('invisible')
+        //     loader.classList.add('invisible')
+        //   })
+        //   .catch(function(err) {
+        //     responseContainer.classList.remove('invisible')
+        //     responseContainer.textContent = 'Error fetching'
+        //   })
+        //   .finally(function() {
+        //     loader.classList.add('invisible')
+        //   })
+        console.log("getAPI, endpoint = ", endpoint);
+      };
     </script>
   </body>
 </html>
