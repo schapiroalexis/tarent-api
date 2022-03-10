@@ -1,20 +1,21 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["groupBy", "nativeTypes"]
+
 }
 
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-
 }
 
 model Schedule {
   id           Int    @id @default(autoincrement())
   courseId     Int
   course       Course @relation(fields: [courseId], references: [id])
-  startDate    String
-  endDate      String
+  startDate    DateTime @db.Timestamptz
+  endDate      DateTime @db.Timestamptz
   frecuency    String
   availability Int
   mo           String
