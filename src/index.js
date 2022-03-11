@@ -14,11 +14,16 @@ const seed = process.env.SEED || false;
 
 const graphQLServer = new ApolloServer({ resolvers, typeDefs });
 graphQLServer.listen({ port }, async () => {
-  console.log(`Server runs at: http://localhost:${port}`);
-  if (seed == "TRUE") {
-    console.log("SEEDING DB");
-    seedDB();
-    process.env.SEED = false;
+  try {
+    console.log(`Server runs at: http://localhost:${port}`);
+    if (seed == "TRUE") {
+      console.log("SEEDING DB");
+      seedDB();
+      process.env.SEED = false;
+    }
+  } catch (error) {
+    console.log(error);
+    return JSON.stringify({ error: "server error" });
   }
 });
 

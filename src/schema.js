@@ -82,7 +82,7 @@ const typeDefs = gql`
     student(id: ID!): Student
     courses: [Course!]!
     course(id: ID!): Course
-    schedules: [Schedule]!
+    schedules(fromDate: String, tillDate: String): [Schedule]!
     schedule(id: ID!): Schedule
   }
 
