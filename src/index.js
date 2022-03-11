@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 
 const { ApolloServer } = require("apollo-server");
 const { typeDefs } = require("./schema");
-const { resolvers } = require("./resolvers");
+const { resolvers } = require("./resolvers/resolvers");
 const { seedDB } = require("./seedDB.js");
 const { app } = require("./routes");
 
