@@ -22,3 +22,5 @@ export DATABASE_URL=postgres://tpqozdpncwypff:aa678f2b9c02466ab562a39285a109f6a9
 $ npx prisma migrate reset
 $ npx prisma db push
 $ npx prisma migrate dev --name=<someName>
+
+dummy
