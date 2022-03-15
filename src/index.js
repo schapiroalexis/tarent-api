@@ -12,7 +12,11 @@ const port = process.env.PORT || 3000;
 
 const seed = process.env.SEED || false;
 
-const graphQLServer = new ApolloServer({ resolvers, typeDefs });
+const graphQLServer = new ApolloServer({
+  resolvers,
+  typeDefs,
+  cors: { origin: "*" },
+});
 graphQLServer.listen({ port }, async () => {
   try {
     console.log(`Server runs at: http://localhost:${port}`);
