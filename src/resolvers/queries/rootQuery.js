@@ -80,6 +80,13 @@ const Query = {
       throw new Error("error - query - schedule");
     }
   },
+  enrollments: async () => {
+    try {
+      return prisma.enrollment.findMany({});
+    } catch (error) {
+      throw new Error("error - query - enrollment");
+    }
+  },
 };
 
 module.exports = {

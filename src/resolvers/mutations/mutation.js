@@ -1,11 +1,11 @@
 const { prisma } = require("../../prismaDB");
 
 const Mutation = {
-  registerTeacher: (parent, args) => {
+  registerTeacher: (parent, { email, fullName }) => {
     return prisma.teacher.create({
       data: {
-        email: args.email,
-        fullName: args.fullName,
+        email,
+        fullName,
       },
     });
   },
@@ -17,26 +17,20 @@ const Mutation = {
       },
     });
   },
-  registerCourse: (parent, args) => {
-    debugger;
-    const { description, title, teacherId } = args;
+  registerCourse: (parent, { description, title, teacherId, price }) => {
     return prisma.course.create({
       data: {
         description,
         title,
         teacherId,
+        price,
       },
     });
   },
-  registerSchedule: (parent, args) => {
-    const {
-      courseId,
-      startDate,
-      endDate,
-      frecuency,
-      availability,
-      daysAndHours,
-    } = args;
+  registerSchedule: (
+    parent,
+    { courseId, startDate, endDate, frecuency, availability, daysAndHours }
+  ) => {
     const { mo, tu, we, th, fr, sa, su } = daysAndHours;
     return prisma.schedule.create({
       data: {
@@ -78,6 +72,47 @@ const Mutation = {
     } catch (error) {
       console.log(error);
       return "error: course could not be updated";
+    }
+  },
+  enrollStudent: async (parent, args) => {
+    try {
+      const scheduleId = Number(args.scheduleId);
+      const studentId = Number(args.studentId);
+      // CHECK SCHEDULE
+      const schedule = await prisma.schedule.findFirst({
+        where: { id: scheduleId },
+      });
+      if (!schedule) throw new Error("wrong schedule id");
+      if (schedule.availability === 0) throw new Error("no available places");
+      // CHECK STUDENT
+      const student = await prisma.student.findFirst({
+        where: { id: studentId },
+      });
+      if (!student) throw new Error("wrong student id");
+
+      const updatedSchedule = await prisma.schedule.update({
+        where: { id: scheduleId },
+        data: {
+          availability: { decrement: 1 },
+        },
+      });
+      const newEnrollment = await prisma.enrollment.create({
+        data: {
+          scheduleId,
+          studentId,
+        },
+      });
+
+      const updatedStudent = await prisma.student.update({
+        where: { id: studentId },
+        data: {
+          enrolled: true,
+        },
+      });
+      return updatedStudent;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
     }
   },
   // enroll: (parent, args) => {

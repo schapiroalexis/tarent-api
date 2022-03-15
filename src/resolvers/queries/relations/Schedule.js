@@ -1,4 +1,4 @@
-const { prisma } = require("../../prismaDB");
+const { prisma } = require("../../../prismaDB");
 
 const Schedule = {
   course: async (parent, args) => {

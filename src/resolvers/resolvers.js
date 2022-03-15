@@ -1,10 +1,13 @@
-const { prisma } = require("../prismaDB");
-const { Course } = require("./queries/course");
-const { Schedule } = require("./queries/schedule");
-const { Query } = require("./queries/query");
+const {
+  Course,
+  Schedule,
+  Enrollment,
+  Student,
+} = require("./queries/relations");
+const { Query } = require("./queries/rootQuery");
 const { Mutation } = require("./mutations/mutation");
 
-const resolvers = { Schedule, Course, Query, Mutation };
+const resolvers = { Student, Enrollment, Schedule, Course, Query, Mutation };
 
 module.exports = {
   resolvers,

@@ -46,19 +46,22 @@ const typeDefs = gql`
     fr: String!
     sa: String!
     su: String!
+    enrollments: [Enrollment]
   }
 
   type Student {
     id: ID!
     fullName: String!
     email: String!
+    enrollments: [Enrollment]
+    enrolled: Boolean
   }
 
   type Teacher {
     id: ID!
     fullName: String!
     email: String!
-    courses: [Course]
+    courses: [Course]!
   }
 
   input DayHour {
@@ -73,20 +76,24 @@ const typeDefs = gql`
 
   type Enrollment {
     id: ID!
-    course: Course!
+    schedule: Schedule!
     student: Student!
+    course: Course!
   }
 
   type Query {
     students: [Student!]!
     student(id: ID!): Student
-    courses: [Course!]!
+    courses: [Course]!
     course(id: ID!): Course
     schedules(fromDate: String, tillDate: String): [Schedule]!
     schedule(id: ID!): Schedule
+    enrollments: [Enrollment]!
+    enrollment(id: ID!): Enrollment
   }
 
   type Mutation {
+    enrollStudent(studentId: ID!, scheduleId: ID!): Student!
     registerTeacher(email: String!, fullName: String!): Teacher!
     registerCourse(
       teacherId: Int!
